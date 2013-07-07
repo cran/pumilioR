@@ -1,0 +1,12 @@
+8aacc8a6b70a1c918b165daa2ad5b0ca *DESCRIPTION
+ba99e876e3659644caed686a1980d5d5 *NAMESPACE
+77ec8dd93f48df1b0d8f88d850ee36fe *R/getCollections.R
+6c793dddb892cb8989915086167f6801 *R/getSites.R
+1dd1c58ec3dc205a75155d31615b3d17 *R/getSounds.R
+98410e65cefeb4f2995c135b434e9589 *R/getVersion.R
+7deff6db10706cf7ddc56f9cc55c29fc *README.md
+f6d9e4295d1c6f175999d230d82ecafc *man/getCollections.Rd
+c5dda721e919595d14dcef522f9b5cdc *man/getSites.Rd
+770115edef5832adb43a42986cfcb16e *man/getSounds.Rd
+7e67a99191351794668f766f10310611 *man/getVersion.Rd
+7c1e5da1dab4cb32860044e22087ce5c *man/pumilioR.package.Rd
