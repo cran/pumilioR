@@ -48,8 +48,10 @@
 %\author{Luis J. Villanueva-Rivera}
 
 \examples{
-sounds <- getSounds(pumilio_URL="http://pumilio.coquipr.com/pumilio/", SiteID=111, type="site")
-sounds[1,]}
+	sounds <- getSounds(pumilio_URL="http://pumilio.coquipr.com/pumilio/",
+		SiteID=111, type="site")
+	sounds[1,]
+	}
 
 %\references{
  %}

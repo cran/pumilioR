@@ -27,7 +27,7 @@
 %\author{Luis J. Villanueva-Rivera}
 
 \examples{
-sites <- getSites(pumilio_URL="http://pumilio.coquipr.com/pumilio/")	
+sites <- getSites(pumilio_URL = "http://pumilio.coquipr.com/pumilio/")	
 sites[1,]}
 
 
