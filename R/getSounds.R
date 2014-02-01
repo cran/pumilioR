@@ -1,8 +1,15 @@
-getSounds <- function(pumilio_URL, SiteID = NA, ColID = NA, type = "all"){
+getSounds <- function(pumilio_URL, SiteID = NA, ColID = NA, type = "all", credentials = NA, pumiliologin = NA){
+  
+	if (!is.na(credentials)){
+		pumilio_URL <- gsub("http://", paste("http://", credentials, "@", sep=""), pumilio_URL)
+		}
+
 	#Function to get the info of sound files that match a query, 
 	# or all sounds in archive is no query is used.
-	if (getVersion(pumilio_URL) == FALSE){
-		stop(" pumilioR only works with Pumilio version 2.6.0 or newer.")
+	if (!is.na(pumiliologin)){
+		pumilio_XML_URL <- paste(pumilio_URL, "xml.php?login=", pumiliologin, sep = "")
+	}else{
+		pumilio_XML_URL <- paste(pumilio_URL, "xml.php", sep = "")
 	}
 	
 	if (type!="all" & is.na(SiteID) & is.na(ColID)){
@@ -11,15 +18,17 @@ getSounds <- function(pumilio_URL, SiteID = NA, ColID = NA, type = "all"){
 	
 	pumilio_XML_URL <- paste(pumilio_URL, "xml.php", sep="")
 	
-	this_site_sounds <- xmlTreeParse(paste(pumilio_XML_URL, "?type=", type, "&SiteID=", SiteID, "&ColID=", ColID, sep=""), isURL = TRUE)
+	this_site_sounds <- xmlTreeParse(getURL(paste(pumilio_XML_URL, "?type=", type, "&SiteID=", SiteID, "&ColID=", ColID, sep="")))
 	sounds_list <- xmlToList(node = this_site_sounds, addAttributes = TRUE)
 	
 	#Get sounds from parsed XML
-	sound_list <- sounds_list$Sounds
+	sound_list <- as.data.frame(t(sounds_list$Sounds), row.names = FALSE)
 	
+	cat(paste(" \n  Found ", dim(sound_list)[1], " results\n\n", sep=""))
+  
 	#Return df of sound data
 	if (length(sound_list)>0){
-		invisible(as.data.frame(t(sound_list), row.names = FALSE))
+		invisible(sound_list)
 		}
 	else{
 		stop("No results from that query.")

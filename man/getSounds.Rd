@@ -7,7 +7,8 @@
 \description{Function to get the data from sounds that match the search query.}
 
 \usage{
-	getSounds(pumilio_URL, SiteID=NA, ColID=NA, type="all")
+	getSounds(pumilio_URL, SiteID=NA, ColID=NA, type="all", 
+		credentials = NA, pumiliologin = NA)
 	}
 
 \arguments{
@@ -15,6 +16,8 @@
 	\item{SiteID}{ ID of a valid site, obtained using \code{getSites} }
 	\item{ColID}{ ID of a valid collection, obtained using \code{getCollections} }
 	\item{type}{ type of query to run: "all" to get all sounds in the archive; "site" for the site specified with \code{SiteID}; "col" for the collection specified with \code{ColID}; "both" for sounds that match both the site specified with \code{SiteID} and the collection specified with \code{ColID}. }
+	\item{credentials}{ username and password, separated with a colon, for websites that require basic Apache webserver authentication }
+	\item{pumiliologin}{ username and password, separated with a colon, for Pumilio systems that require a valid user }
 	}
 
 \value{
@@ -48,10 +51,12 @@
 %\author{Luis J. Villanueva-Rivera}
 
 \examples{
-	sounds <- getSounds(pumilio_URL="http://pumilio.coquipr.com/pumilio/",
-		SiteID=111, type="site")
-	sounds[1,]
+	\dontrun{
+		sounds <- getSounds(pumilio_URL="http://pumilio.coquipr.com/pumilio/",
+			SiteID=111, type="site")
+		sounds[1,]
 	}
+}
 
 %\references{
  %}

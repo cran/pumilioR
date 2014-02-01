@@ -7,11 +7,13 @@
 \description{Function to get the sites with sounds from Pumilio.}
 
 \usage{
-	getSites(pumilio_URL)
+	getSites(pumilio_URL, credentials = NA, pumiliologin = NA)
 	}
 
 \arguments{
 	\item{pumilio_URL}{ URL of the Pumilio installation, with trailing slash. For example: "http://server.com/pumilio/" }
+   \item{credentials}{ username and password, separated with a colon, for websites that require basic Apache webserver authentication }
+   \item{pumiliologin}{ username and password, separated with a colon, for Pumilio systems that require a valid user }
 	}
 
 \value{
@@ -27,9 +29,11 @@
 %\author{Luis J. Villanueva-Rivera}
 
 \examples{
-sites <- getSites(pumilio_URL = "http://pumilio.coquipr.com/pumilio/")	
-sites[1,]}
-
+	\dontrun{
+		sites <- getSites(pumilio_URL = "http://pumilio.coquipr.com/pumilio/")	
+		sites[1,]
+	}
+}
 
 %\references{
  %}

@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+<title>Setting up Pumilio and Usage of the <em>pumilioR</em> Package</title>
+
+
+
+
+
+<style type="text/css">
+body, td {
+   font-family: sans-serif;
+   background-color: white;
+   font-size: 12px;
+   margin: 8px;
+}
+
+tt, code, pre {
+   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+}
+
+h1 { 
+   font-size:2.2em; 
+}
+
+h2 { 
+   font-size:1.8em; 
+}
+
+h3 { 
+   font-size:1.4em; 
+}
+
+h4 { 
+   font-size:1.0em; 
+}
+
+h5 { 
+   font-size:0.9em; 
+}
+
+h6 { 
+   font-size:0.8em; 
+}
+
+a:visited {
+   color: rgb(50%, 0%, 50%);
+}
+
+pre {	
+   margin-top: 0;
+   max-width: 95%;
+   border: 1px solid #ccc;
+   white-space: pre-wrap;
+}
+
+pre code {
+   display: block; padding: 0.5em;
+}
+
+code.r, code.cpp {
+   background-color: #F8F8F8;
+}
+
+table, td, th {
+  border: none;
+}
+
+blockquote {
+   color:#666666;
+   margin:0;
+   padding-left: 1em;
+   border-left: 0.5em #EEE solid;
+}
+
+hr {
+   height: 0px;
+   border-bottom: none;
+   border-top-width: thin;
+   border-top-style: dotted;
+   border-top-color: #999999;
+}
+
+@media print {
+   * { 
+      background: transparent !important; 
+      color: black !important; 
+      filter:none !important; 
+      -ms-filter: none !important; 
+   }
+
+   body { 
+      font-size:12pt; 
+      max-width:100%; 
+   }
+       
+   a, a:visited { 
+      text-decoration: underline; 
+   }
+
+   hr { 
+      visibility: hidden;
+      page-break-before: always;
+   }
+
+   pre, blockquote { 
+      padding-right: 1em; 
+      page-break-inside: avoid; 
+   }
+
+   tr, img { 
+      page-break-inside: avoid; 
+   }
+
+   img { 
+      max-width: 100% !important; 
+   }
+
+   @page :left { 
+      margin: 15mm 20mm 15mm 10mm; 
+   }
+     
+   @page :right { 
+      margin: 15mm 10mm 15mm 20mm; 
+   }
+
+   p, h2, h3 { 
+      orphans: 3; widows: 3; 
+   }
+
+   h2, h3 { 
+      page-break-after: avoid; 
+   }
+}
+</style>
+
+
+
+</head>
+
+<body>
+<!--
+%\VignetteEngine{knitr}
+%\VignetteIndexEntry{Setting up Pumilio for pumilioR and usage}
+-->
+
+<h1>Setting up Pumilio and Usage of the <em>pumilioR</em> Package</h1>
+
+<h2>Introduction</h2>
+
+<p>The <em>pumilioR</em> package has functions to get data and sound files from the web-based sound archive system Pumilio (<a href="http://ljvillanueva.github.io/pumilio">http://ljvillanueva.github.io/pumilio</a>). This introduction will provide a brief overview of setting up Pumilio and examples of how to query the system and extract both data and soundfiles.</p>
+
+<p><em>pumilioR</em> requires R version 2.14, or newer, and depends on the packages <em>XML</em> and <em>RCurl</em>. </p>
+
+<p>The source of the package is kept at Github: <a href="https://github.com/ljvillanueva/pumilioR">https://github.com/ljvillanueva/pumilioR</a></p>
+
+<p>The website of the package is <a href="http://ljvillanueva.github.io/pumilioR/">http://ljvillanueva.github.io/pumilioR/</a></p>
+
+<h2>Pumilio Setup</h2>
+
+<p>To allow the use of the package, log in as an administrator to the Pumilio system. Click the Admin menu link (on the top right edge of the page). On the main settings page of the Admin menu, under &ldquo;System behavior&rdquo;, there is an option:</p>
+
+<ul>
+<li>Allow access using XML: Yes/No</li>
+</ul>
+
+<p>Set it to Yes. Now <em>pumilioR</em>, and other programs, can read data from the archive using XML.</p>
+
+<p>To limit the access to valid users registered in the Pumilio system, set the option:</p>
+
+<ul>
+<li>Who can access via XML: Any/Users</li>
+</ul>
+
+<p>to Users. To allow anyone to query the system set it to Any.</p>
+
+<h2>Check access</h2>
+
+<p>Before querying the system, first check that it is properly configured and that you can access it, for example:</p>
+
+<pre><code>#Load the package
+library(pumilioR)
+
+#Check that the system can use pumilioR, returns TRUE if it is allowed and the version supports it
+access &lt;- checkVersion(pumilio_URL = &quot;http://pumilio.coquipr.com/pumilio/&quot;)
+
+access
+</code></pre>
+
+<h2>Querying the system</h2>
+
+<p>To query the system, use the functions <em>getCollections()</em> or <em>getSites()</em> to get a data frame with the collections and the sites, respectively, in the system. Then, you can get the sounds for that collection or site using the function <em>getSounds()</em>. For example:</p>
+
+<pre><code>#Get all collections
+cols &lt;- getCollections(pumilio_URL = &quot;http://pumilio.coquipr.com/pumilio/&quot;)
+
+#Show the first row
+cols[1,]
+
+#Get all sites
+sites &lt;- getSites(pumilio_URL = &quot;http://pumilio.coquipr.com/pumilio/&quot;)  
+
+#Show the first row
+sites[1,]
+
+#Get all the sounds in the site with the SiteID = 102
+sounds &lt;- getSounds(pumilio_URL=&quot;http://pumilio.coquipr.com/pumilio/&quot;, SiteID=102, type=&quot;site&quot;)
+
+#Show the first row
+sounds[1,]
+</code></pre>
+
+<h2>Download files</h2>
+
+<p>Once a result is obtained from the system, the audio file can be downloaded using the function <em>getFile()</em>. This function needs the result of either <em>getCollections()</em> or <em>getSites()</em> and the SoundID of the desired file.</p>
+
+<pre><code>#First, get a list of results
+results &lt;- getSounds(pumilio_URL=&quot;http://pumilio.coquipr.com/pumilio/&quot;, SiteID=111, type=&quot;site&quot;)
+
+results[1,]
+</code></pre>
+
+<p>Then, get the file from the first row, identified with the SoundID 4078. The audio file is saved in the working directory.</p>
+
+<pre><code>getFile(results, SoundID = 4078)
+</code></pre>
+
+<h2>Apache Basic Authentication</h2>
+
+<p>Basic authentication can be used on the Apache webserver as a way to limit access to the data by requiring a username and password. This is outside the scope of this vignette. Since version 1.2 of <em>pumilioR</em> these sites can be accessed providing the username and password, separated with a colon, to the argument <em>credentials</em> in each function.</p>
+
+<pre><code>
+sites &lt;- getSites(pumilio_URL = &quot;http://pumilio.coquipr.com/pumilio2/&quot;, credentials = &quot;pumilio:pumilio&quot;)
+
+sites[1,]
+</code></pre>
+
+<h2>Pumilio User Authentication</h2>
+
+<p>Since version 1.2 of <em>pumilioR</em> and version 2.7.0 of Pumilio, the system can be accessed providing a valid username and password, separated with a colon, already registered in the system to the argument <em>pumiliologin</em> in each function.</p>
+
+<pre><code>library(pumilioR)
+
+sites &lt;- getSites(pumilio_URL = &quot;http://pumilio.coquipr.com/pumilio3/&quot;, pumiliologin = &quot;pumilio:pumilio&quot;)
+
+sites[1,]
+</code></pre>
+
+<h2>Package website</h2>
+
+<p>Please visit the package website for more information and updates: <a href="http://ljvillanueva.github.io/pumilioR/">http://ljvillanueva.github.io/pumilioR/</a></p>
+
+<p>For suggestions or to report bugs or problems: <a href="http://github.com/ljvillanueva/pumilioR/issues">http://github.com/ljvillanueva/pumilioR/issues</a></p>
+
+<p>The package page in CRAN is <a href="http://cran.r-project.org/web/packages/pumilioR/">http://cran.r-project.org/web/packages/pumilioR/</a></p>
+
+<hr/>
+
+<p>Vignette &ldquo;Setting up Pumilio and Usage of the <em>pumilioR</em> Package&rdquo; by LJ Villanueva-Rivera</p>
+
+<p><em>Version 1.0 (1 February 2014)</em></p>
+
+</body>
+
+</html>
