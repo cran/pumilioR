@@ -122,10 +122,10 @@ Please visit the package website for more information and updates: http://ljvill
 
 For suggestions or to report bugs or problems: http://github.com/ljvillanueva/pumilioR/issues
 
-The package page in CRAN is http://cran.r-project.org/web/packages/pumilioR/
+The package page in CRAN is https://cran.r-project.org/package=pumilioR
 
 - - -
 
 Vignette "Setting up Pumilio and Usage of the *pumilioR* Package" by LJ Villanueva-Rivera
 
-*Version 1.0 (1 February 2014)*
+*Version 1.0.1 (22 November 2016)*

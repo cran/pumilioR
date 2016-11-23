@@ -22,9 +22,11 @@
 %\author{Luis J. Villanueva-Rivera}
 
 \examples{
-	access <- checkVersion(pumilio_URL = "http://pumilio.coquipr.com/pumilio/")
+  \dontrun{
+	  access <- checkVersion(pumilio_URL = "http://pumilio.coquipr.com/pumilio/")
 	
-	access
+	  access
+	  }
 	}
 
 %\references{

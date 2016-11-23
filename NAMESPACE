@@ -1,2 +1,3 @@
 import("XML","RCurl")
+importFrom("utils", "download.file")
 exportPattern("^[[:alpha:]]+")
